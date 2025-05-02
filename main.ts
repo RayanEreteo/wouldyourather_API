@@ -1,9 +1,7 @@
+import "dotenv/config";
 import express from 'express';
-import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import { addDilemma } from './controllers/dilemmaController.ts';
-
-dotenv.config();
 
 const app = express();
 app.use(bodyParser.json());
