@@ -19,8 +19,7 @@ export default connection;
 export const connectToDatabase = async () => {
   try {
     await connection.getConnection();
-    console.log( "\u001b[1;32m");
-    console.log('Connected to the database successfully!');
+    return connection;
   } catch (error) {
     console.error('Error connecting to the database:', error);
   }
