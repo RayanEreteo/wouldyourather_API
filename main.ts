@@ -6,7 +6,7 @@ import { addDilemma } from './controllers/dilemmaController.ts';
 const app = express();
 app.use(bodyParser.json());
 
-app.get('/addDilemma', addDilemma);
+app.post('/addDilemma', addDilemma);
 
 app.listen(process.env.PORT, () => {
     console.log('Server is running on port ' + process.env.PORT);
