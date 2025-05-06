@@ -17,6 +17,10 @@ export async function addDilemma(req: Request, res: Response): Promise<any> {
         return res.json({success: true, message: "Dilemma added successfully."})
     } catch (error) {
         console.error("Database error:", error);
-        return res.status(500).json({ error: "Internal server error." });
+        return res.status(500).json({ success: false, message: "Server Error." });
     }
+}
+
+export function getDilemma(req: Request, res: Response){
+
 }
