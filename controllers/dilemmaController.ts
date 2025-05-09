@@ -14,13 +14,30 @@ export async function addDilemma(req: Request, res: Response): Promise<any> {
             [red, blue, 0, 0]
         );
 
-        return res.json({success: true, message: "Dilemma added successfully."})
+        con?.end();
+        return res.json({ success: true, message: "Dilemma added successfully." });
     } catch (error) {
         console.error("Database error:", error);
         return res.status(500).json({ success: false, message: "Server Error." });
     }
 }
 
-export function getDilemma(req: Request, res: Response){
+export async function getDilemma(req: Request, res: Response): Promise<any> {
+    try {
+        const con = await connectToDatabase();
 
+        const [rows] = await con?.query("SELECT * FROM dilemma ORDER BY RAND() LIMIT 1") as any;
+
+        if (rows.length === 0) {
+            return res.status(404).json({ success: false, message: "No dilemmas found." });
+        }
+
+        const dilemma = rows[0];
+
+        con?.end();
+        return res.json({ success: true, returnedDilemma: dilemma });
+    } catch (error) {
+        console.error("Database error:", error);
+        return res.status(500).json({ success: false, message: "Server Error." });
+    }
 }
