@@ -14,7 +14,6 @@ export async function addDilemma(req: Request, res: Response): Promise<any> {
             [red, blue, 0, 0]
         );
 
-        con?.end();
         return res.json({ success: true, message: "Dilemma added successfully." });
     } catch (error) {
         console.error("Database error:", error);
@@ -32,7 +31,6 @@ export async function getDilemma(req: Request, res: Response): Promise<any> {
         }
         const dilemma = rows[0];
 
-        con?.end();
         return res.json({ success: true, returnedDilemma: dilemma });
     } catch (error) {
         console.error("Database error:", error);
