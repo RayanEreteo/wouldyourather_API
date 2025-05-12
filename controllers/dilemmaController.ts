@@ -4,7 +4,7 @@ import { connectToDatabase } from "../modules/dbConn.ts";
 export async function addDilemma(req: Request, res: Response): Promise<any> {
     const { red, blue } = req.body;
     if (!red || !blue) {
-        return res.status(400).json({ error: "Invalid input." });
+        return res.status(400).json({ success: false, message: "Please fill in both fields." });
     }
 
     try {
