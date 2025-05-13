@@ -37,3 +37,7 @@ export async function getDilemma(req: Request, res: Response): Promise<any> {
         return res.status(500).json({ success: false, message: "Server Error." });
     }
 }
+
+export async function setDilemmaClicks(req: Request, res: Response): Promise<any> {
+    // TODO : Set logic to update dilemma clicks
+}
