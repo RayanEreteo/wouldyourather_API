@@ -39,5 +39,16 @@ export async function getDilemma(req: Request, res: Response): Promise<any> {
 }
 
 export async function setDilemmaClicks(req: Request, res: Response): Promise<any> {
-    // TODO : Set logic to update dilemma clicks
+    const { id, color } = req.body
+
+    try {
+        const con = await connectToDatabase()
+        
+        await con?.execute("UPDATE dilemma SET ? = ? + 1 WHERE id = ?", 
+            [color, id]
+        );
+    } catch (error) {
+        console.error("Database error:", error);
+        return res.status(500).json({ success: false, message: "Server Error." });
+    }
 }
