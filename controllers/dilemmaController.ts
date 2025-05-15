@@ -41,6 +41,10 @@ export async function getDilemma(req: Request, res: Response): Promise<any> {
 export async function setDilemmaClicks(req: Request, res: Response): Promise<any> {
     const { id, color } = req.body
 
+    if (!id || !color) {
+        return res.status(400).json({success: false, message: "Error : Bad Request"})
+    }
+
     try {
         const con = await connectToDatabase()
         
