@@ -14,7 +14,7 @@ export async function addDilemma(req: Request, res: Response): Promise<any> {
             [red, blue, 0, 0]
         );
 
-        return res.json({ success: true, message: "Dilemma added successfully." });
+        return res.status(200).json({ success: true, message: "Dilemma added successfully." });
     } catch (error) {
         console.error("Database error:", error);
         return res.status(500).json({ success: false, message: "Server Error." });
@@ -31,7 +31,7 @@ export async function getDilemma(req: Request, res: Response): Promise<any> {
         }
         const dilemma = rows[0];
 
-        return res.json({ success: true, returnedDilemma: dilemma });
+        return res.status(200).json({ success: true, returnedDilemma: dilemma });
     } catch (error) {
         console.error("Database error:", error);
         return res.status(500).json({ success: false, message: "Server Error." });
@@ -44,9 +44,11 @@ export async function setDilemmaClicks(req: Request, res: Response): Promise<any
     try {
         const con = await connectToDatabase()
         
-        await con?.execute("UPDATE dilemma SET ? = ? + 1 WHERE id = ?", 
-            [color, id]
-        );
+        const query = `UPDATE dilemma SET ${color} = ${color} + 1 WHERE id = ?`
+
+        await con?.execute(query, [id]);
+
+        res.status(200).json({success: true})
     } catch (error) {
         console.error("Database error:", error);
         return res.status(500).json({ success: false, message: "Server Error." });
